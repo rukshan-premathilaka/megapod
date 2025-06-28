@@ -7,7 +7,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const MenuList = [
-        { name: "Home", link: "#" },
+        { name: "Home", link: "/" },
         { name: "About", link: "#" },
         { name: "Services", link: "#" },
         { name: "Contact", link: "#" },
@@ -15,7 +15,7 @@ export default function Navbar() {
 
     return (
         <nav className="mx-auto flex items-center justify-between flex-wrap px-4 lg:px-8 py-4
-        text-white text-xl font-bold
+        text-white text-xl font-bold bg-rose-700 rounded-2xl
        ">
 
             {/* Logo */}
@@ -47,7 +47,7 @@ export default function Navbar() {
                 <ul className="flex flex-col lg:flex-row lg:space-x-6 mt-4 lg:mt-0 ">
                     {MenuList.map((item, index) => (
                         <li key={index} className="mb-2 lg:mb-0 border-white">
-                            <a href={item.link} className="hover:text-yellow-400 lg:px-2 lg:py-4 lg:border-b transition font-bold">
+                            <a href={item.link} className="hover:text-yellow-400 lg:px-2 lg:py-4 lg:border-b transition font-bold hover:cursor-pointer">
                                 {item.name}
                             </a>
                         </li>
@@ -57,7 +57,7 @@ export default function Navbar() {
 
                 {/* Button */}
                 <div className="mt-4 lg:hidden lg:mt-0 lg:ml-4">
-                    <button className="bg-white text-pink-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto">
+                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
                         Start Your Journey
                     </button>
                 </div>
@@ -65,7 +65,7 @@ export default function Navbar() {
 
             {/* Button */}
             <div className="mt-4 hidden lg:block lg:mt-0 lg:ml-4">
-                <button className="bg-white text-pink-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto">
+                <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
                     Start Your Journey
                 </button>
             </div>
