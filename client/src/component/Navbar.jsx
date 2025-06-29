@@ -10,13 +10,12 @@ export default function Navbar() {
         { name: "Home", link: "/" },
         { name: "About", link: "#" },
         { name: "Services", link: "#" },
-        { name: "Contact", link: "#" },
+        { name: "Contact", link: "/test" },
     ];
 
     return (
-        <nav className="mx-auto flex items-center justify-between flex-wrap px-4 lg:px-8 py-4
-        text-white text-xl font-bold bg-rose-700 rounded-2xl
-       ">
+        <nav className="relative z-50 mx-auto flex items-center justify-between flex-wrap px-4 lg:px-8 py-4
+text-white text-xl font-bold bg-rose-700 rounded-2xl transition duration-300 shadow-lg">
 
             {/* Logo */}
             <div className="flex items-center">
@@ -57,17 +56,25 @@ export default function Navbar() {
 
                 {/* Button */}
                 <div className="mt-4 lg:hidden lg:mt-0 lg:ml-4">
-                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
-                        Start Your Journey
+                    <button className="hidden bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
+                        Connect Your Wallet
                     </button>
+                    <div className="flex gap-4">
+                        <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
+                        <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
+                    </div>
                 </div>
             </div>
 
             {/* Button */}
             <div className="mt-4 hidden lg:block lg:mt-0 lg:ml-4">
-                <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
-                    Start Your Journey
+                <button className="hidden bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
+                    Connect Your Wallet
                 </button>
+                <div className="flex gap-4">
+                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
+                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
+                </div>
             </div>
         </nav>
     )

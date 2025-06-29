@@ -15,14 +15,14 @@ export default function StatusBar({ current, total }) {
                     <div
                         key={i}
                         className={`
-              w-8 h-8 rounded-full border-[4px] border-white relative
+              w-8 h-8 rounded-full border-[4px] ${current > i ? 'border-amber-400 shadow-[0_0_12px_2px_rgba(255,197,94,1)]' : 'border-white'} relative
               ${i === current ? 'bg-white' : 'bg-rose-600'}
             `}
                     >
                         {i === current && (
                             <span className="text-white text-[14px] w-40 text-center h-auto absolute transform top-[40px] left-1/2 -translate-x-1/2 -translate-y-1/2">
-                You are Here
-              </span>
+                                You are Here
+                            </span>
                         )}
                     </div>
                 ))}

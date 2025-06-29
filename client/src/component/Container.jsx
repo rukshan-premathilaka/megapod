@@ -1,4 +1,4 @@
-
+import BgImage from "../assets/bg.svg";
 
 
 export default function Container({children}) {
