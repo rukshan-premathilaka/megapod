@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Logo from "../assets/logo.svg?react";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -8,10 +9,18 @@ export default function Navbar() {
 
     const MenuList = [
         { name: "Home", link: "/" },
-        { name: "About", link: "#" },
+        { name: "About", link: "/dashboard" },
         { name: "Services", link: "#" },
         { name: "Contact", link: "/test" },
     ];
+
+    const navigate = useNavigate();
+    const handleSignUpButton = () => {
+        navigate('/register');
+    }
+    const handleSignInButton = () => {
+        navigate('/login');
+    }
 
     return (
         <nav className="relative z-50 mx-auto flex items-center justify-between flex-wrap px-4 lg:px-8 py-4
@@ -72,8 +81,8 @@ text-white text-xl font-bold bg-rose-700 rounded-2xl transition duration-300 sha
                     Connect Your Wallet
                 </button>
                 <div className="flex gap-4">
-                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
-                    <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
+                    <button onClick={handleSignUpButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
+                    <button onClick={handleSignInButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
                 </div>
             </div>
         </nav>

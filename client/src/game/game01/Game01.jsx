@@ -5,18 +5,19 @@ import img1 from '../../assets/Game01/1.svg';
 import img2 from '../../assets/Game01/2.svg';
 import img3 from '../../assets/Game01/3.svg';
 import img4 from '../../assets/Game01/4.svg';
+import Logo from "../../component/Logo.jsx";
 
-
-// Initial items
+// Initial items with correct order
 const initialItems = [
-    { id: "1", order: 1, image: img1},
-    { id: "2", order: 2, image: img2},
-    { id: "3", order: 3, image: img3},
-    { id: "4", order: 4, image: img4}
+    { id: "1", order: 1, image: img1 },
+    { id: "2", order: 2, image: img2 },
+    { id: "3", order: 3, image: img3 },
+    { id: "4", order: 4, image: img4 }
 ];
 
 export default function Game01() {
     const [items, setItems] = useState(initialItems);
+    const [isOrderCorrect, setIsOrderCorrect] = useState(null); // null = not checked, true/false after check
 
     const handleOnDragEnd = (result) => {
         if (!result.destination) return;
@@ -26,18 +27,24 @@ export default function Game01() {
         updatedItems.splice(result.destination.index, 0, movedItem);
 
         setItems(updatedItems);
+        setIsOrderCorrect(null); // reset check after drag
     };
-
-    console.log(items);
 
     const handleClick = () => {
-        alert("Button Clicked!");
+        // Check if current order matches initial order
+        const correct = items.every((item, index) => item.id === initialItems[index].id);
+        setIsOrderCorrect(correct);
     };
 
-    return(
-        <div className="h-screen relative">
-            <h1 className="text-4xl absolute top-1/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-white w-full text-center">Build The Train in Order</h1>
+    const handleTryAgain = () => {
+        setItems(initialItems);
+        setIsOrderCorrect(null);
+    };
 
+    return (
+        <div className="h-screen relative">
+            <Logo />
+            <h1 className="text-4xl absolute top-1/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-white w-full text-center">Build The Train in Order</h1>
 
             <div className="py-40 top-6/12 left-1/2 transform -translate-x-1/2 absolute w-3/4 h-[500px] -translate-y-1/2">
                 <div className="grid grid-cols-3 w-full h-full">
@@ -72,8 +79,11 @@ export default function Game01() {
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                             >
-                                                <img src={item.image} alt={item.label} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-15 sm:w-24 lg:w-36 xl:w-60" />
-
+                                                <img
+                                                    src={item.image}
+                                                    alt={`#${item.id}`}
+                                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-15 sm:w-24 lg:w-36 xl:w-60"
+                                                />
                                             </div>
                                         )}
                                     </Draggable>
@@ -86,10 +96,33 @@ export default function Game01() {
             </div>
 
 
-            <button className="text-2xl absolute top-10/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-center text-red-600 bg-white rounded-4xl hover:cursor-pointer hover:bg-yellow-400 transition"
+            <button
+                className="text-2xl absolute top-10/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-center text-red-600 bg-white rounded-4xl hover:cursor-pointer hover:bg-yellow-400 transition"
                 onClick={handleClick}
-            >Confirm The Build
+            >
+                Confirm The Build
             </button>
+
+
+            {isOrderCorrect === false && (
+                <div className="absolute top-[90%] left-1/2 transform -translate-x-1/2 flex items-center gap-4">
+                    <p className="text-white font-bold text-xl">Order is incorrect!</p>
+                    <button
+                        className="border-white border-4 text-2xl font-black px-8 py-2 text-center text-white bg-red-600 rounded-4xl hover:cursor-pointer hover:bg-red-800 transition"
+                        onClick={handleTryAgain}
+                    >
+                        Try Again
+                    </button>
+                </div>
+            )}
+
+
+
+            {isOrderCorrect === true && (
+                <p className="absolute top-[90%] left-1/2 transform -translate-x-1/2 text-white font-bold text-xl">
+                    Correct Order! Well done!
+                </p>
+            )}
         </div>
-    )
+    );
 }

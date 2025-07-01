@@ -1,4 +1,4 @@
-import Navbar from "../component/Navbar.jsx";
+import Navbar from "../section/Navbar.jsx";
 import HeroSection from "../section/HeroSection.jsx";
 import Container from "../component/Container.jsx";
 

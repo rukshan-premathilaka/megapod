@@ -3,7 +3,7 @@ import { FaStar} from "react-icons/fa";
 import Container from "../component/Container.jsx";
 import Question from "../component/Question.jsx";
 import StatusBar from "../component/StatusBar.jsx";
-import Navbar from "../component/Navbar.jsx";
+import Navbar from "../section/Navbar.jsx";
 
 
 export default function QuizPage() {
