@@ -5,8 +5,8 @@ import Container from "../component/Container.jsx";
 function Test() {
     const [walletAvailable, setWalletAvailable] = useState(false);
     const [connected, setConnected] = useState(false);
+    const [walletAddress, setWalletAddress] = useState("");
 
-    // Check if Lace wallet is installed
     const checkWallet = () => {
         if (window.cardano && window.cardano.lace) {
             setWalletAvailable(true);
@@ -16,32 +16,39 @@ function Test() {
         }
     };
 
-    // Connect to the wallet
     const connectWallet = async () => {
         try {
-            await window.cardano.lace.enable(); // This opens the Lace popup
+            const lace = await window.cardano.lace.enable(); // opens popup
             setConnected(true);
-            console.log("Wallet connected");
+
+            const usedAddresses = await lace.getUsedAddresses();
+            const address = usedAddresses[0]; // pick the first address
+            const displayAddress = address.substring(0, 10) + "..." + address.substring(address.length - 10);
+            setWalletAddress(displayAddress);
+
+            setWalletAddress(address);
         } catch (err) {
             console.error("User rejected connection", err);
         }
     };
 
     return (
-        <Container>
-            <div style={{ padding: "2rem" }}>
-                <button onClick={checkWallet}>Check Wallet</button>
+        <div style={{ padding: "2rem" }}>
+            <button onClick={checkWallet}>Check Wallet</button>
 
-                {walletAvailable && !connected && (
-                    <button onClick={connectWallet} style={{ marginLeft: "1rem" }}>
-                        Connect Lace Wallet
-                    </button>
-                )}
+            {walletAvailable && !connected && (
+                <button onClick={connectWallet} style={{ marginLeft: "1rem" }}>
+                    Connect Lace Wallet
+                </button>
+            )}
 
-                {connected && <p>✅ Wallet Connected!</p>}
-            </div>
-        </Container>
-
+            {connected && (
+                <div>
+                    <p>✅ Wallet Connected!</p>
+                    <p><strong>Address:</strong> {walletAddress}</p>
+                </div>
+            )}
+        </div>
     );
 }
 
