@@ -1,4 +1,7 @@
-function Aboutus() {
+
+
+
+export function Aboutus() {
 
     let f = () => {
         console.log("hello");
@@ -11,3 +14,7 @@ function Aboutus() {
         </div>
     )
 }
+
+
+
+

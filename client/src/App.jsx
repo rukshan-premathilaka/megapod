@@ -10,6 +10,7 @@ import NotFound from "./page/NotFound.jsx";
 import AfterRegister from "./page/AfterRegister.jsx";
 import Dashboard from "./page/Dashboard.jsx";
 import NFTCollection from "./page/NFTCollection.jsx";
+import {Aboutus} from "./page/aboutus.jsx";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/afterregister" element={<AfterRegister/>} />
             <Route path="/dashboard" element={<Dashboard /> } />
             <Route path="/nftcollection" element={<NFTCollection />} />
+            <Route path="/about" element={<Aboutus />} />
             <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
