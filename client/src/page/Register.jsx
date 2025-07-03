@@ -2,15 +2,26 @@ import Container from "../component/Container.jsx";
 import BGanimeted from "../component/BGanimeted.jsx";
 import Logo from "../component/Logo.jsx";
 import {useState} from "react";
+import Loading from "../component/Loading.jsx";
+import Alert from "../component/Alert.jsx";
 
 function Register() {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showLoading, setShowLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [message, setMessage] = useState("");
+    const [status, setStatus] = useState(false);
+    const [btnClicked, setBtnClicked] = useState(() => {});
+    const [btnText, setBtnText] = useState("");
 
 
     const handleSubmit = async (e) => {
+
+        setShowLoading(true);
+
         e.preventDefault();
 
         const payload = {
@@ -33,15 +44,22 @@ function Register() {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Login successful!");
-                console.log("Response:", data);
-                // Do something, like redirect to dashboard
+                setMessage(data.message);
+                setShowLoading(false);
+                setBtnClicked(() => () =>{ setShowAlert(false); window.location.href = "/login"; })
+                setStatus(true);
+                setBtnText("LOGIN");
+                setShowAlert(true);
             } else {
-                alert(data.message || "Login failed!");
+                setMessage(data.message);
+                setShowLoading(false);
+                setBtnClicked(() => () => { setShowAlert(false); })
+                setStatus(false);
+                setBtnText("CLOSE");
+                setShowAlert(true);
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Something went wrong!");
         }
     };
 
@@ -55,10 +73,22 @@ function Register() {
                 <Logo />
             </div>
 
+            <Loading showLoading={showLoading} />
+
+            <Alert
+                msg={message}
+                show={showAlert}
+                status={status}
+                btnShow={true}
+                btnClick={btnClicked}
+                btnText={btnText}
+            />
+
             <div className="flex flex-col items-center justify-center h-screen ">
                 <h1 className="text-8xl font-bold text-white mb-4 ">REGISTER HERE</h1>
 
-                <div className="md:scale-125 p-8 mt-14 rounded-[3rem] flex flex-col items-center justify-center bg-white/25 backdrop-blur-xs">
+                <div
+                    className=" md:scale-125 p-8 mt-14 rounded-[3rem] flex flex-col items-center justify-center bg-white/25 backdrop-blur-xs">
                     <input
                         type="text"
                         value={name}

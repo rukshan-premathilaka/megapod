@@ -1,11 +1,15 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Logo from "../assets/logo.svg?react";
 import { useNavigate } from 'react-router-dom';
+import { checkAuth } from "../utils/auth";
+import Profile from "../component/profile.jsx";
 
 
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isUserLogin, setUserLogin] = useState(false);
+    const [user, setUser] = useState(null);
 
     const MenuList = [
         { name: "Home", link: "/" },
@@ -13,6 +17,24 @@ export default function Navbar() {
         { name: "Services", link: "#" },
         { name: "Contact", link: "/test" },
     ];
+
+    useEffect(() => {
+        checkAuth().then(data => {
+            if (data.isLoggedIn) {
+                console.log("User is logged in:", data.user);
+                setUserLogin(true);
+                setUser(data.user);
+                // global use
+                window.user.name = data.user.name;
+                window.user.email = data.user.email;
+
+
+            } else {
+                console.log("Not logged in");
+            }
+        });
+    }, []);
+
 
     const navigate = useNavigate();
     const handleSignUpButton = () => {
@@ -68,10 +90,15 @@ text-white text-xl font-bold bg-rose-700 rounded-2xl transition duration-300 sha
                     <button className="hidden bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
                         Connect Your Wallet
                     </button>
-                    <div className="flex gap-4">
-                        <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
-                        <button className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
+                    <div className={ isUserLogin ? "hidden" : "flex gap-4" } >
+                        <button onClick={handleSignUpButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
+                        <button onClick={handleSignInButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
                     </div>
+                    {isUserLogin && user && (
+                        <div className="flex gap-4">
+                            <Profile email={user.email} name={user.name} />
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -80,10 +107,15 @@ text-white text-xl font-bold bg-rose-700 rounded-2xl transition duration-300 sha
                 <button className="hidden bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">
                     Connect Your Wallet
                 </button>
-                <div className="flex gap-4">
+                <div className={ isUserLogin ? "hidden" : "flex gap-4" } >
                     <button onClick={handleSignUpButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign Up</button>
                     <button onClick={handleSignInButton} className="bg-white text-rose-600 font-bold px-8 py-2 rounded-4xl hover:bg-yellow-300 transition w-full lg:w-auto hover:cursor-pointer">Sign In</button>
                 </div>
+                {isUserLogin && user && (
+                    <div className="flex gap-4">
+                        <Profile email={user.email} name={user.name} />
+                    </div>
+                )}
             </div>
         </nav>
     )

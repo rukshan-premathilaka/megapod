@@ -1,12 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import BGImage from "../assets/Asset 1.svg";
+import { checkAuth } from "../utils/auth";
+import {useState} from "react";
 
 export default function HeroSection() {
 
+    const [isUserLogin, setUserLogin] = useState(false);
     const navigate = useNavigate();
 
     const handleStart = () => {
-        navigate('/game');
+        checkAuth().then(data => {
+            if (data.isLoggedIn) {
+                console.log("User is logged in:");
+                setUserLogin(true);
+                window.location.href = "/connect-wallet";
+            } else {
+                console.log("Not logged in");
+                window.location.href = "/login";
+            }
+        });
     };
 
     return (

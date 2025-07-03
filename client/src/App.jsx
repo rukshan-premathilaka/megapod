@@ -7,7 +7,7 @@ import Test from "./test/Test.jsx";
 import Login from "./page/Login.jsx";
 import Register from "./page/Register.jsx";
 import NotFound from "./page/NotFound.jsx";
-import AfterRegister from "./page/AfterRegister.jsx";
+import ConnectWallet from "./page/ConnectWallet.jsx";
 import Dashboard from "./page/Dashboard.jsx";
 import NFTCollection from "./page/NFTCollection.jsx";
 import {Aboutus} from "./page/aboutus.jsx";
@@ -23,13 +23,14 @@ function App() {
             <Route path="/game" element={<Game />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/afterregister" element={<AfterRegister/>} />
+            <Route path="/connect-wallet" element={<ConnectWallet/>} />
             <Route path="/dashboard" element={<Dashboard /> } />
             <Route path="/nftcollection" element={<NFTCollection />} />
             <Route path="/about" element={<Aboutus />} />
             <Route path="/WalletConnected" element={<WalletConnected />} />
             <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
+
         </Routes>
 
     );

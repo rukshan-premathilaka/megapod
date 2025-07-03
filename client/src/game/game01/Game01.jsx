@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Link from '../../assets/Game01/Link.svg';
-import img1 from '../../assets/Game01/1.svg';
-import img2 from '../../assets/Game01/2.svg';
+import img1 from '../../assets/Game01/2.svg';
+import img2 from '../../assets/Game01/1.svg';
 import img3 from '../../assets/Game01/3.svg';
 import img4 from '../../assets/Game01/4.svg';
 import Logo from "../../component/Logo.jsx";
@@ -14,6 +14,7 @@ const initialItems = [
     { id: "3", order: 3, image: img3 },
     { id: "4", order: 4, image: img4 }
 ];
+
 
 export default function Game01() {
     const [items, setItems] = useState(initialItems);
@@ -44,7 +45,7 @@ export default function Game01() {
     return (
         <div className="h-screen relative">
             <Logo />
-            <h1 className="text-4xl absolute top-1/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-white w-full text-center">Build The Train in Order</h1>
+            <h1 className="text-4xl absolute top-1/12 left-1/2 transform -translate-x-1/2 font-black px-16 py-2 text-white w-full text-center">Build The Train in Order <br/> Drag & Drop</h1>
 
             <div className="py-40 top-6/12 left-1/2 transform -translate-x-1/2 absolute w-3/4 h-[500px] -translate-y-1/2">
                 <div className="grid grid-cols-3 w-full h-full">

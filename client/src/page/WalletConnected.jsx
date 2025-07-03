@@ -4,6 +4,9 @@ import Wallet from "../assets/icons/wallet.svg";
 
 
 function WalletConnected() {
+
+
+
     return (
         <div className="relative w-screen h-screen overflow-hidden">
             <div className="absolute inset-0 -z-10">
