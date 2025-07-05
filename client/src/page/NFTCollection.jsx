@@ -1,8 +1,24 @@
 import Container from "../component/Container.jsx";
 import Logo from "../component/Logo.jsx";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {checkAuth} from "../utils/auth.js";
 
 
 function NFTCollection() {
+
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        checkAuth().then((res) => {
+            if (res.isLoggedIn) {
+                setUser(res.user);
+            } else {
+                navigate("/login");
+            }
+        });
+    }, []);
 
 
     return(

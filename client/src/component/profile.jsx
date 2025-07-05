@@ -31,6 +31,12 @@ export default function Profile({ name, email }) {
                             Connect Your Wallet
                         </button>
                         <button
+                            onClick={() => { window.location.href = "/levels"; }}
+                            className="text-red-600 font-bold hover:text-red-600/50 cursor-pointer w-full text-left"
+                        >
+                            View All Levels
+                        </button>
+                        <button
                             onClick={Logout}
                             className="text-red-600 font-bold hover:text-red-600/50 cursor-pointer w-full text-left"
                         >

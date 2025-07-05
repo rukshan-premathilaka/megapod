@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Link from '../../assets/Game01/Link.svg';
 import img1 from '../../assets/Game01/2.svg';
@@ -6,18 +6,38 @@ import img2 from '../../assets/Game01/1.svg';
 import img3 from '../../assets/Game01/3.svg';
 import img4 from '../../assets/Game01/4.svg';
 import Logo from "../../component/Logo.jsx";
+import {useNavigate} from "react-router-dom";
+import {checkAuth} from "../../utils/auth.js";
 
 // Initial items with correct order
 const initialItems = [
-    { id: "1", order: 1, image: img1 },
+    { id: "3", order: 1, image: img3 },
     { id: "2", order: 2, image: img2 },
-    { id: "3", order: 3, image: img3 },
+    { id: "1", order: 3, image: img1 },
     { id: "4", order: 4, image: img4 }
 ];
 
 
-export default function Game01() {
-    const [items, setItems] = useState(initialItems);
+export default function Game01(props) {
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        checkAuth().then((res) => {
+            if (res.isLoggedIn) {
+                setUser(res.user);
+            } else {
+                navigate("/login");
+            }
+        });
+    }, []);
+
+    const shuffleArray = (array) => {
+        return [...array].sort(() => Math.random() - 0.5);
+    };
+
+    const [items, setItems] = useState(shuffleArray(initialItems));
+
     const [isOrderCorrect, setIsOrderCorrect] = useState(null); // null = not checked, true/false after check
 
     const handleOnDragEnd = (result) => {
@@ -28,18 +48,46 @@ export default function Game01() {
         updatedItems.splice(result.destination.index, 0, movedItem);
 
         setItems(updatedItems);
-        setIsOrderCorrect(null); // reset check after drag
+        setIsOrderCorrect(null);
     };
 
     const handleClick = () => {
-        // Check if current order matches initial order
         const correct = items.every((item, index) => item.id === initialItems[index].id);
         setIsOrderCorrect(correct);
+        if (correct) {
+            sendRequest().then(
+                () => {
+                    if (props.onSuccess) props.onSuccess();
+                }
+            );
+        }
     };
 
     const handleTryAgain = () => {
-        setItems(initialItems);
+        setItems(shuffleArray(initialItems));
         setIsOrderCorrect(null);
+    };
+
+    // function send request to the backend with email and level number
+    const sendRequest = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/user/update-level', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Important for sending cookies
+                body: JSON.stringify({ email: user.email, level: 1 }),
+            });
+
+            if (response.ok) {
+                console.log('Level updated successfully');
+            } else {
+                console.error('Failed to update level');
+            }
+        } catch (error) {
+            console.error('Error updating level:', error);
+        }
     };
 
     return (

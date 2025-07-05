@@ -4,6 +4,8 @@ import BGanimeted from "../component/BGanimeted.jsx";
 
 import Logo from "../component/Logo.jsx";
 import Alert from "../component/Alert.jsx";
+import {useNavigate} from "react-router-dom";
+import {checkAuth} from "../utils/auth.js";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -14,6 +16,15 @@ function Login() {
     const [status, setStatus] = useState(false);
     const [btnClicked, setBtnClicked] = useState(null);
     const [btnText, setBtnText] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        checkAuth().then((res) => {
+            if (res.isLoggedIn) {
+                navigate("/dashboard");
+            }
+        });
+    }, []);
 
 
     const handleSubmit = async (e) => {

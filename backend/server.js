@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
     res.send("HI");
 });
 
- // adjust if needed
+
 app.use('/user', UserRouter);
 
 

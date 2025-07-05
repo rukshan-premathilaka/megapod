@@ -12,6 +12,7 @@ import Dashboard from "./page/Dashboard.jsx";
 import NFTCollection from "./page/NFTCollection.jsx";
 import {Aboutus} from "./page/aboutus.jsx";
 import WalletConnected from "./page/WalletConnected.jsx";
+import LevelPage from "./page/LevelPage.jsx";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/nftcollection" element={<NFTCollection />} />
             <Route path="/about" element={<Aboutus />} />
             <Route path="/WalletConnected" element={<WalletConnected />} />
+            <Route path="/levels" element={<LevelPage />} />
             <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
 
