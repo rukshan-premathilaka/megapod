@@ -95,6 +95,7 @@ export default function QuizPage() {
         } else {
             console.log("All answers:", updatedAnswers);
             alert("Quiz finished!");
+            window.location.href = "/NFTWON";
         }
     };
 

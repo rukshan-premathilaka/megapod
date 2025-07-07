@@ -13,9 +13,9 @@ export default function Navbar() {
 
     const MenuList = [
         { name: "Home", link: "/" },
-        { name: "About", link: "/dashboard" },
+        { name: "About", link: "/about" },
         { name: "Services", link: "#" },
-        { name: "Contact", link: "/test" },
+        { name: "Contact", link: "#" },
     ];
 
     useEffect(() => {
